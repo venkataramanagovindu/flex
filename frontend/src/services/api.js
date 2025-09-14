@@ -1,7 +1,9 @@
 let __loggedHostawayOnce = false;
 
+const BASE_URL = import.meta.env.VITE_BACKEND_URL || '';
+
 export async function fetchHostawayReviews() {
-  const res = await fetch('/api/reviews/hostaway');
+  const res = await fetch(`${BASE_URL}/api/reviews/hostaway`);
   let body = null;
   try {
     body = await res.json();
@@ -21,19 +23,19 @@ export async function fetchHostawayReviews() {
 }
 
 export async function approveReview(id) {
-  const res = await fetch(`/api/reviews/approvals/${id}`, { method: 'POST' });
+  const res = await fetch(`${BASE_URL}/api/reviews/approvals/${id}`, { method: 'POST' });
   if (!res.ok) throw new Error('Failed to approve review');
   return res.json();
 }
 
 export async function unapproveReview(id) {
-  const res = await fetch(`/api/reviews/approvals/${id}`, { method: 'DELETE' });
+  const res = await fetch(`${BASE_URL}/api/reviews/approvals/${id}`, { method: 'DELETE' });
   if (!res.ok) throw new Error('Failed to unapprove review');
   return res.json();
 }
 
 export async function fetchGoogleReviews(placeId) {
-  const url = placeId ? `/api/reviews/google?placeId=${encodeURIComponent(placeId)}` : '/api/reviews/google';
+  const url = placeId ? `${BASE_URL}/api/reviews/google?placeId=${encodeURIComponent(placeId)}` : `${BASE_URL}/api/reviews/google`;
   try {
     const res = await fetch(url);
     const body = await res.json().catch(()=>({ status:'error', code:'PARSE', message:'Invalid JSON' }));

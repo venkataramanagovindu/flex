@@ -10,7 +10,21 @@ import postApprovalHandler from './api/approvals/[id].post.js';
 import deleteApprovalHandler from './api/approvals/[id].delete.js';
 
 const app = express();
-app.use(cors());
+
+console.log('[local backend] CORS configured for:', [
+    'http://localhost:5173',            // Vite frontend in dev
+    process.env.FRONTEND_URL || ''      // Optional: deployed frontend
+].filter(Boolean).join(', '));
+
+
+app.use(cors({
+    origin: [
+      'http://localhost:5173',            // Vite frontend in dev
+      process.env.FRONTEND_URL || ''      // Optional: deployed frontend
+    ],
+    methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+    credentials: true
+  }));
 app.use(express.json());
 
 // Route mappings
