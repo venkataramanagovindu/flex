@@ -4,12 +4,12 @@
   "functions": {
     "api/**/*.js": {
       "runtime": "nodejs18.x"
+    },
+    "backend/**/*.js": {
+      "runtime": "nodejs18.x"
     }
   },
-  "builds": [
-    { "src": "frontend/package.json", "use": "@vercel/node" },
-    { "src": "backend/api/**/*.js", "use": "@vercel/node" }
-  ],
+
    "rewrites": [
     { "source": "/api/(.*)", "destination": "/backend/api/$1" },
     { "source": "/(.*)", "destination": "/frontend/dist/$1" }
