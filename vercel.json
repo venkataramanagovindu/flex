@@ -1,17 +1,10 @@
 {
-  "buildCommand": "npm install && npm run build",
-  "outputDirectory": "dist",
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "nodejs18.x"
-    },
-    "backend/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
-
-   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/backend/api/$1" },
-    { "source": "/(.*)", "destination": "/frontend/dist/$1" }
+  "builds": [
+    { "src": "frontend/package.json", "use": "@vercel/static-build", "config": { "distDir": "dist" } },
+    { "src": "backend/api/**/*.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/backend/api/$1" },
+    { "src": "/(.*)", "dest": "/frontend/dist/$1" }
   ]
 }
