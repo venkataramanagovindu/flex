@@ -20,12 +20,12 @@ export default async function handler(req, res) {
   try {
     if (req.method === 'POST') {
       const store = await approveReview(String(id)); // <--- await if async
-      return res.status(200).json({ approvedReviewIds: store.approvedReviewIds });
+      return res.status(200).json({ approvedReviewIds: store.approvedReviewIds, persistence: 'ephemeral' });
     }
 
     if (req.method === 'DELETE') {
       const store = await unapproveReview(String(id)); // <--- await if async
-      return res.status(200).json({ approvedReviewIds: store.approvedReviewIds });
+      return res.status(200).json({ approvedReviewIds: store.approvedReviewIds, persistence: 'ephemeral' });
     }
 
     res.setHeader('Allow', ['POST', 'DELETE']);
