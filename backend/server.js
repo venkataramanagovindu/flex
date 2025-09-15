@@ -9,18 +9,23 @@ import hostawayHandler from './api/reviews/hostaway.js';
 import postApprovalHandler from './api/approvals/[id].post.js';
 import deleteApprovalHandler from './api/approvals/[id].delete.js';
 
+const envFile = process.env.NODE_ENV === 'production' ? '.env' : '.env.local';
+dotenv.config({ path: envFile });
+
+console.log('[DEBUG] Using environment file:', envFile);
+console.log('[DEBUG] FRONTEND_URL:', process.env.FRONTEND_URL);
+
 const app = express();
 
 console.log('[local backend] CORS configured for:', [
-    'http://localhost:5173',            // Vite frontend in dev
-    process.env.FRONTEND_URL || ''      // Optional: deployed frontend
+    'http://localhost:5173',            
+    process.env.FRONTEND_URL || ''      
 ].filter(Boolean).join(', '));
 
 
 app.use(cors({
     origin: [
-      'http://localhost:5173',            // Vite frontend in dev
-      process.env.FRONTEND_URL || ''      // Optional: deployed frontend
+      'http://localhost:5173'    
     ],
     methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
     credentials: true
