@@ -1,4 +1,4 @@
-import { approveReview, unapproveReview } from '../../../../lib/approvals.js';
+import { approveReview, unapproveReview } from '../../../lib/approvals.js';
 
 export default async function handler(req, res) {
   // Allow CORS for your frontend
