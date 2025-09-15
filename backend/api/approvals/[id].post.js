@@ -2,7 +2,7 @@ import { approveReview } from '../../lib/approvals.js';
 
 export default async function handler(req, res) {
     res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Origin", process.env.FRONTEND_URL || "http://localhost:5173"); 
+    res.setHeader("Access-Control-Allow-Origin", process.env.FRONTEND_URL); 
     res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
     res.setHeader("Access-Control-Allow-Headers", "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version");
   
@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     if (req.method === "OPTIONS") {
       return res.status(200).end();
     }
-    
+
     const { id } = req.query;
     if (!id) return res.status(400).json({ status: 'error', message: 'Missing id' });
 
